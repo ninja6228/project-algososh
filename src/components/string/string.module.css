@@ -1,0 +1,15 @@
+.sectionForm {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.input {
+  width: 377px;
+}
+
+.sectionResult {
+  margin-top: 146px;
+  display: flex;
+  justify-content: center;
+}
