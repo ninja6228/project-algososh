@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useForm } from "../../utils/hook/useForm";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from '../ui/input/input';
@@ -11,9 +11,9 @@ import style from './string.module.css';
 
 export const StringComponent = () => {
   const { values, handleChange, setValues } = useForm({ value: '' })
-  const [string, setString] = useState([]);
-  const [isLoader, setIsLoader] = useState(false);
-  const [indexLetter, setIndexLetter] = useState([])
+  const [string, setString] = useState<string[]>([]);
+  const [isLoader, setIsLoader] = useState<boolean>(false);
+  const [indexLetter, setIndexLetter] = useState<number[]>([])
 
   const reverseString = async () => {
     setIsLoader(true)
@@ -28,7 +28,7 @@ export const StringComponent = () => {
     while (startString <= endString) {
       setIndexLetter([startString, endString])
       await timer(DELAY_IN_MS);
-      
+
       [arrString[startString], arrString[endString]] = [arrString[endString], arrString[startString]]
 
       startString++;
@@ -40,14 +40,14 @@ export const StringComponent = () => {
     setIsLoader(false)
   }
 
-  const stateLetter = (position, index) => {
+  const stateLetter = (position: number[], index: number) => {
     const [start, end] = position
     const state = index < start || index > end ? ElementStates.Modified : index === start || index === end ? ElementStates.Changing : ElementStates.Default
     return state
   }
 
 
-  const handClick = (value) => {
+  const handClick = (value: FormEvent<HTMLFormElement>) => {
     value.preventDefault();
     reverseString();
     setValues({ value: '' })
