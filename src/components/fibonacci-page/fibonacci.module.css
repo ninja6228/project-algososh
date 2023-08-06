@@ -1,0 +1,21 @@
+.sectionForm {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+
+.input {
+  width: 377px;
+}
+
+.sectionResult {
+  margin: 48px auto;
+  max-width: 944px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 48px;
+  column-gap: 16px;
+}

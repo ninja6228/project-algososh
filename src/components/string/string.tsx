@@ -9,7 +9,7 @@ import { timer } from "../../utils/function/timer";
 import { ElementStates } from '../../types/element-states';
 import style from './string.module.css';
 
-export const StringComponent = () => {
+export const StringComponent: React.FC = () => {
   const { values, handleChange, setValues } = useForm({ value: '' })
   const [string, setString] = useState<string[]>([]);
   const [isLoader, setIsLoader] = useState<boolean>(false);
@@ -47,8 +47,8 @@ export const StringComponent = () => {
   }
 
 
-  const handClick = (value: FormEvent<HTMLFormElement>) => {
-    value.preventDefault();
+  const handClick = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     reverseString();
     setValues({ value: '' })
   }
