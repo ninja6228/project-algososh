@@ -1,0 +1,34 @@
+.sectionFrom {
+  display: flex;
+  width: 980px;
+  gap: 50px;
+  margin: 0 auto;
+}
+
+.blockRadioInput {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.blockButton {
+  display: flex;
+  gap: 12px;
+}
+
+.buttonSort {
+  width: 205px;
+}
+
+.buttonReset {
+  width: 205px;
+  margin-left: 30px;
+}
+
+.resultSection {
+  height: 398px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: flex-end;
+}
