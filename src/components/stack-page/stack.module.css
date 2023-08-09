@@ -1,0 +1,24 @@
+.sectionForm {
+  justify-content: center;
+  display: flex;
+  gap: 12px;
+}
+
+.input {
+  width: 377px;
+}
+
+.buttonReset {
+  margin-left: 92px;
+}
+
+.sectionResult {
+  margin: 48px auto;
+  max-width: 944px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 48px;
+  column-gap: 26px;
+}
