@@ -8,7 +8,7 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Circle } from '../ui/circle/circle';
 import { Stack } from "./utils/class";
 import { ElementStates } from '../../types/element-states';
-import { ButtonState } from './utils/types';
+import { ButtonState } from '../../types/buttonState';
 import style from './stack.module.css';
 
 const stack = new Stack<string>()
