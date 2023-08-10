@@ -8,15 +8,21 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Circle } from '../ui/circle/circle';
 import { Stack } from "./utils/class";
 import { ElementStates } from '../../types/element-states';
+import { ButtonState } from './utils/types';
 import style from './stack.module.css';
 
 const stack = new Stack<string>()
 
+
 export const StackPage: React.FC = () => {
   const { values, handleChange, setValues } = useForm({ value: '' });
   const [arr, setArr] = useState<string[]>([]);
-  const [isLoader, setIsLoader] = useState<string>('');
   const [state, setState] = useState(ElementStates.Default)
+  const [isLoader, setIsLoader] = useState<ButtonState>({
+    buttonPush: false,
+    buttonDelete: false,
+    buttonReset: false
+  });
 
   const lengthArr = stack.getSize()
 
@@ -28,32 +34,32 @@ export const StackPage: React.FC = () => {
 
   const handClickPush = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setIsLoader('push')
+    setIsLoader({ ...isLoader, buttonPush: true })
     stack.push(values.value);
     setValues({ value: '' })
     await timer(SHORT_DELAY_IN_MS)
     setArr([...stack.getElements()])
     toggleState()
-    setIsLoader('')
+    setIsLoader({ ...isLoader, buttonPush: false })
   }
 
   const handClickDelete = async () => {
-    setIsLoader('delete')
+    setIsLoader({ ...isLoader, buttonDelete: true })
     toggleState()
     await timer(SHORT_DELAY_IN_MS)
     stack.pop()
     setArr([...stack.getElements()])
-    setIsLoader('')
+    setIsLoader({ ...isLoader, buttonDelete: false })
   }
 
   const handClickReset = async () => {
-    setIsLoader('reset')
+    setIsLoader({ ...isLoader, buttonReset: true })
     setValues({ value: '' })
     await timer(SHORT_DELAY_IN_MS)
     stack.reset()
     setArr([...stack.getElements()])
     setValues({ value: '' })
-    setIsLoader('')
+    setIsLoader({ ...isLoader, buttonReset: false })
   }
 
   const toggleState = async () => {
@@ -62,7 +68,7 @@ export const StackPage: React.FC = () => {
     setState(ElementStates.Default)
   }
 
-  const stateButtons = () => lengthArr && !isLoader ? false : true;
+  const stateButtons = () => !lengthArr || (isLoader.buttonPush || isLoader.buttonReset || isLoader.buttonDelete) ? true : false;
   const stateHead = (index: number) => index === lengthArr - 1 ? 'top' : null
   const stateElement = (index: number) => index === lengthArr - 1 ? state : ElementStates.Default
 
@@ -82,21 +88,21 @@ export const StackPage: React.FC = () => {
           text={"Добавить"}
           type={'submit'}
           disabled={values.value ? false : true}
-          isLoader={isLoader === 'push' ? true : false}
+          isLoader={isLoader.buttonPush}
         />
         <Button
           text={"Удалить"}
           type={'button'}
           onClick={() => handClickDelete()}
           disabled={stateButtons()}
-          isLoader={isLoader === 'delete' ? true : false}
+          isLoader={isLoader.buttonDelete}
         />
         <Button
           text={"Очистить"}
           extraClass={style.buttonReset}
           type={'reset'}
           disabled={stateButtons()}
-          isLoader={isLoader === 'reset' ? true : false}
+          isLoader={isLoader.buttonReset}
         />
       </form>
       <section className={style.sectionResult}>

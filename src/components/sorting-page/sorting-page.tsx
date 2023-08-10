@@ -12,9 +12,9 @@ import style from './sorting.module.css';
 export const SortingPage: React.FC = () => {
   const [arrNumbers, setArrNumbers] = useState<number[]>([]);
   const [radioValue, setRadioValue] = useState<string>('selection');
-  const [currentElement, setCurrentElement] = useState<number>();
-  const [nextElement, setNextElement] = useState<number>();
-  const [lastElement, setLastElement] = useState<number>();
+  const [currentElement, setCurrentElement] = useState<number | undefined>();
+  const [nextElement, setNextElement] = useState<number | undefined>();
+  const [lastElement, setLastElement] = useState<number | undefined>();
   const [deactiveButton, setDeactiveButton] = useState<boolean>(false);
   const [loading, setLoading] = useState<string>('');
 
