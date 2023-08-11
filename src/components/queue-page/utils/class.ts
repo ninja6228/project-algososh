@@ -24,8 +24,13 @@ export class Queue<T> implements TQueue<T> {
   };
 
   dequeue = () => {
-    delete this.container[this.head % this.size]
-    this.head++
+    if (this.head === this.size - 1) {
+      delete this.container[this.head % this.size]
+      this.head = this.size - 1
+    } else if (this.head < this.size) {
+      delete this.container[this.head % this.size]
+      this.head++
+    }
   };
 
   reset = (): void => {

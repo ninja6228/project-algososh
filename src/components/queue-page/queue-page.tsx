@@ -56,7 +56,6 @@ export const QueuePage: React.FC = () => {
     queue.reset()
     setArr([...queue.getElements()])
     setIsLoader({ ...isLoader, buttonReset: false })
-    setValues({ value: '' })
   }
 
   const toggleState = async () => {
@@ -69,8 +68,8 @@ export const QueuePage: React.FC = () => {
   const DeleteStateElement = (index: number) => index === queue.head ? state : ElementStates.Default
 
   const stateLoaderButtons = isLoader.buttonPush || isLoader.buttonDelete || isLoader.buttonReset ? false : true;
-  
-  const buttonAddState = values.value && queue.tail < 7 && stateLoaderButtons ? false : true;
+
+  const buttonAddState = values.value && queue.tail < queue.size && stateLoaderButtons ? false : true;
   const buttonDeleteState = arr.find(item => item !== undefined) && queue.length && stateLoaderButtons ? false : true;
   const buttonResetState = queue.length && stateLoaderButtons ? false : true;
 
@@ -114,7 +113,7 @@ export const QueuePage: React.FC = () => {
               letter={item}
               key={index}
               index={index}
-              head={index === queue.head && item ? 'head' : null}
+              head={index === queue.head && queue.length ? 'head' : null}
               tail={index === queue.tail - 1 && item ? 'tail' : null}
               state={isLoader.buttonPush ? AddStateElement(index) : isLoader.buttonDelete ? DeleteStateElement(index) : ElementStates.Default}
             />
