@@ -13,12 +13,11 @@
 }
 
 .sectionResult {
-  margin: 48px auto;
-  max-width: 944px;
+  margin: 52px auto;
+  max-width: 656px;
   width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  row-gap: 48px;
-  column-gap: 26px;
+  gap: 16px;
 }
