@@ -23,7 +23,7 @@ export const StackPage: React.FC = () => {
     buttonDelete: false,
     buttonReset: false
   });
-
+  const maxLengthArr = 19;
   const lengthArr = stack.getSize()
 
   useEffect(() => {
@@ -37,9 +37,9 @@ export const StackPage: React.FC = () => {
     setIsLoader({ ...isLoader, buttonPush: true })
     stack.push(values.value);
     setValues({ value: '' })
-    await timer(SHORT_DELAY_IN_MS)
     setArr([...stack.getElements()])
     toggleState()
+    await timer(SHORT_DELAY_IN_MS)
     setIsLoader({ ...isLoader, buttonPush: false })
   }
 
@@ -68,7 +68,9 @@ export const StackPage: React.FC = () => {
     setState(ElementStates.Default)
   }
 
-  const stateButtons = () => !lengthArr || (isLoader.buttonPush || isLoader.buttonReset || isLoader.buttonDelete) ? true : false;
+  const stateLoadersButtons = isLoader.buttonPush || isLoader.buttonReset || isLoader.buttonDelete ? true : false
+  const stateButtonsDelete = !lengthArr || stateLoadersButtons ? true : false;
+  const stateButtonAdd = values.value ? (arr.length > maxLengthArr ? true : false) || stateLoadersButtons : true;
   const stateHead = (index: number) => index === lengthArr - 1 ? 'top' : null
   const stateElement = (index: number) => index === lengthArr - 1 ? state : ElementStates.Default
 
@@ -87,21 +89,21 @@ export const StackPage: React.FC = () => {
         <Button
           text={"Добавить"}
           type={'submit'}
-          disabled={values.value ? false : true}
+          disabled={stateButtonAdd}
           isLoader={isLoader.buttonPush}
         />
         <Button
           text={"Удалить"}
           type={'button'}
           onClick={() => handClickDelete()}
-          disabled={stateButtons()}
+          disabled={stateButtonsDelete}
           isLoader={isLoader.buttonDelete}
         />
         <Button
           text={"Очистить"}
           extraClass={style.buttonReset}
           type={'reset'}
-          disabled={stateButtons()}
+          disabled={stateButtonsDelete}
           isLoader={isLoader.buttonReset}
         />
       </form>
