@@ -56,6 +56,7 @@ export const FibonacciPage: React.FC = () => {
           disabled={stateButton()}
           type={'submit'}
           isLoader={isLoader}
+          extraClass={style.button}
         />
       </form >
       <div className={style.sectionResult}>
