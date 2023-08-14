@@ -69,6 +69,7 @@ export const StringComponent: React.FC = () => {
           disabled={values.value ? false : true}
           type={'submit'}
           isLoader={isLoader}
+          extraClass={style.button}
         />
       </form >
       <div className={style.sectionResult}>

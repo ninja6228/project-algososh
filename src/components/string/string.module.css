@@ -1,6 +1,6 @@
 .sectionForm {
   display: flex;
-  gap: 20px;
+  gap: 12px;
   justify-content: center;
 }
 
@@ -9,7 +9,12 @@
 }
 
 .sectionResult {
-  margin-top: 146px;
+  margin-top: 120px;
+  gap: 16px;
   display: flex;
   justify-content: center;
+}
+
+.button {
+  width: 178px;
 }
