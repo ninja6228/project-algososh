@@ -1,7 +1,7 @@
 .sectionFrom {
   display: flex;
   width: 980px;
-  gap: 50px;
+  gap: 52px;
   margin: 0 auto;
 }
 
@@ -22,11 +22,11 @@
 
 .buttonReset {
   width: 205px;
-  margin-left: 30px;
+  margin-left: 28px;
 }
 
 .resultSection {
-  height: 398px;
+  height: 390px;
   display: flex;
   gap: 10px;
   justify-content: center;
