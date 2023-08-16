@@ -3,16 +3,16 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { useForm } from "../../utils/hook/useForm";
-import { LinkedList } from './utils/class/class';
+import { LinkedList } from './utils/class';
 import chevronRight from '../../images/icons/chevron-right.svg';
 import { Circle } from "../ui/circle/circle";
 import { timer } from "../../utils/function/timer";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
-import { stateHead, stateTail } from './utils/function/function'
+import { stateHead, stateTail } from './utils/function'
 import { ElementStates } from "../../types/element-states";
 import style from './list.module.css'
 
-const list = new LinkedList<string>()
+const list = new LinkedList<string>(['0', '34', '8', '1'])
 
 export const ListPage: React.FC = () => {
   const { values, handleChange, setValues } = useForm({ value: '', index: '' });
@@ -29,13 +29,12 @@ export const ListPage: React.FC = () => {
     bottonAddByIndex: false,
     bottonDeleteByIndex: false,
   })
-  const maxLengthStrArr = 12;
+  const MAX_INDEX = strArr.length - 1;
+  const MIN_INDEX = 1;
+  const MAX_LENGTH_LINE = 4;
+  const MAX_LENGTH_STR_ARR = 12;
 
   useEffect(() => {
-    list.append('0')
-    list.append('34')
-    list.append('8')
-    list.append('1')
     setStrArr([...list.getArrayValues()])
     return () => {
       list.reset()
@@ -149,9 +148,9 @@ export const ListPage: React.FC = () => {
       isLoaded.bottonAddByIndex ||
       isLoaded.bottonDeleteByIndex ? true : false
 
-  const stateAddButtons = !values.value || loadedButtons || strArr.length >= maxLengthStrArr ? true : false;
+  const stateAddButtons = !values.value || loadedButtons || strArr.length >= MAX_LENGTH_STR_ARR ? true : false;
   const stateDeleteButtons = !strArr.length || loadedButtons ? true : false;
-  const stateButtonInsertAt = !values.value || !values.index || loadedButtons || +values.index < 0 || +values.index > strArr.length - 1 || strArr.length >= maxLengthStrArr ? true : false;
+  const stateButtonInsertAt = !values.value || !values.index || loadedButtons || +values.index < 0 || +values.index > strArr.length - 1 || strArr.length >= MAX_LENGTH_STR_ARR ? true : false;
   const stateButtonDeleteAt = !strArr.length || !values.index || loadedButtons || +values.index < 0 || +values.index > strArr.length - 1 ? true : false;
 
   return (
@@ -161,7 +160,7 @@ export const ListPage: React.FC = () => {
           <Input
             placeholder={"Введите значение"}
             extraClass={style.input}
-            maxLength={4}
+            maxLength={MAX_LENGTH_LINE}
             isLimitText={true}
             value={values.value}
             name={'value'}
@@ -198,8 +197,8 @@ export const ListPage: React.FC = () => {
           <Input
             placeholder={"Введите индекс"}
             extraClass={style.input}
-            min={1}
-            max={strArr.length - 1}
+            min={MIN_INDEX}
+            max={MAX_INDEX}
             value={values.index}
             name={'index'}
             type={'number'}

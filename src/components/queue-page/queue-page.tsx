@@ -23,6 +23,8 @@ export const QueuePage: React.FC = () => {
     buttonReset: false
   });
 
+  const MAX_LENGTH_LINE = 4;
+
   useEffect(() => {
     setArr([...queue.getElements()])
     return (() => {
@@ -78,7 +80,7 @@ export const QueuePage: React.FC = () => {
       <form className={style.sectionForm} onSubmit={handClickPush} onReset={handClickReset}>
         <Input
           extraClass={style.input}
-          maxLength={4}
+          maxLength={MAX_LENGTH_LINE}
           isLimitText={true}
           placeholder={"Введите значение"}
           value={values.value}

@@ -13,7 +13,6 @@ import style from './stack.module.css';
 
 const stack = new Stack<string>()
 
-
 export const StackPage: React.FC = () => {
   const { values, handleChange, setValues } = useForm({ value: '' });
   const [arr, setArr] = useState<string[]>([]);
@@ -23,7 +22,10 @@ export const StackPage: React.FC = () => {
     buttonDelete: false,
     buttonReset: false
   });
-  const maxLengthArr = 19;
+
+  const MAX_LENGTH_LINE = 4;
+  const MAX_LENGTH_ARR = 19;
+
   const lengthArr = stack.getSize()
 
   useEffect(() => {
@@ -70,7 +72,7 @@ export const StackPage: React.FC = () => {
 
   const stateLoadersButtons = isLoader.buttonPush || isLoader.buttonReset || isLoader.buttonDelete ? true : false
   const stateButtonsDelete = !lengthArr || stateLoadersButtons ? true : false;
-  const stateButtonAdd = values.value ? (arr.length > maxLengthArr ? true : false) || stateLoadersButtons : true;
+  const stateButtonAdd = values.value ? (arr.length > MAX_LENGTH_ARR ? true : false) || stateLoadersButtons : true;
   const stateHead = (index: number) => index === lengthArr - 1 ? 'top' : null
   const stateElement = (index: number) => index === lengthArr - 1 ? state : ElementStates.Default
 
@@ -79,7 +81,7 @@ export const StackPage: React.FC = () => {
       <form className={style.sectionForm} onSubmit={handClickPush} onReset={handClickReset}>
         <Input
           extraClass={style.input}
-          maxLength={4}
+          maxLength={MAX_LENGTH_LINE}
           isLimitText={true}
           placeholder={"Введите значение"}
           value={values.value}

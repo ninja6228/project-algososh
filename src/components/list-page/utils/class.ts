@@ -22,10 +22,11 @@ export class LinkedList<T> implements ILinkedList<T> {
   private head: Node<T> | null;
   private tail: Node<T> | null;
   private size: number;
-  constructor() {
+  constructor(baseArr: T[]) {
     this.head = null;
     this.tail = null;
     this.size = 0;
+    baseArr.forEach(element => this.append(element))
   }
 
   prepend(value: T) {

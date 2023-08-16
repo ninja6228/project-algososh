@@ -1,5 +1,5 @@
-import { ElementStates } from "../../../../types/element-states";
-import { Circle } from "../../../ui/circle/circle";
+import { ElementStates } from "../../../types/element-states";
+import { Circle } from "../../ui/circle/circle";
 
 type nodeT = {
   value: string,

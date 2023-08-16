@@ -15,6 +15,8 @@ export const StringComponent: React.FC = () => {
   const [isLoader, setIsLoader] = useState<boolean>(false);
   const [indexLetter, setIndexLetter] = useState<number[]>([])
 
+  const MAX_LENGTH_LINE = 11;
+
   const reverseString = async () => {
     setIsLoader(true)
     await timer(SHORT_DELAY_IN_MS)
@@ -46,7 +48,6 @@ export const StringComponent: React.FC = () => {
     return state
   }
 
-
   const handClick = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     reverseString();
@@ -58,7 +59,7 @@ export const StringComponent: React.FC = () => {
 
       <form className={style.sectionForm} onSubmit={handClick}>
         <Input
-          maxLength={11}
+          maxLength={MAX_LENGTH_LINE}
           isLimitText={true}
           extraClass={style.input}
           value={values.value}
