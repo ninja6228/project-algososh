@@ -1,0 +1,41 @@
+.sectionForm {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center
+}
+
+.sectionInput {
+  gap: 12px;
+  display: flex;
+}
+
+.input {
+  width: 204px;
+}
+
+.buttonValue {
+  width: 175px;
+}
+
+.buttonIndex {
+  width: 362px;
+}
+
+.sectionResult {
+  margin-top: 90px;
+  display: flex;
+  justify-content: center;
+  column-gap: 16px;
+  row-gap: 30px;
+  flex-wrap: wrap;
+}
+
+.circle {
+  display: flex;
+  gap: 16px;
+}
+
+.circle:last-child img {
+  display: none;
+}
