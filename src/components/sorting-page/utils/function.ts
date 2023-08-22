@@ -1,8 +1,39 @@
+import React from 'react';
 import { ElementStates } from '../../../types/element-states';
+import { timer } from '../../../utils/function/timer';
 
 export const randomNumber = (min: number = 0, max: number = 0) => Math.floor(Math.random() * (max - min + 1) + min);
 
-export const bubbleSwap = (arr: number[], directionSort: string, j: number) => {
+export const bubbleSortFuntion = async (
+  arr: number[],
+  directionSort: string,
+  waitingTime: number,
+  setLastElement?: React.Dispatch<React.SetStateAction<number | undefined>>,
+  setNextElement?: React.Dispatch<React.SetStateAction<number | undefined>>,
+  setCurrentElement?: React.Dispatch<React.SetStateAction<number | undefined>>,
+  setArrNumbers?: React.Dispatch<React.SetStateAction<number[]>>) => {
+
+  for (let i = 0; i < arr.length; i++) {
+    if (setLastElement) {
+      setLastElement(arr.length - i - 1)
+    }
+    for (let j = 0; j < arr.length - i - 1; j++) {
+      if (setCurrentElement) {
+        setCurrentElement(j)
+      }
+      if (setNextElement) {
+        setNextElement(j + 1)
+      }
+      await timer(waitingTime)
+      bubbleSwap(arr, directionSort, j)
+      if (setArrNumbers) {
+        setArrNumbers([...arr])
+      }
+    }
+  }
+};
+
+const bubbleSwap = (arr: number[], directionSort: string, j: number) => {
   if (directionSort === 'up') {
     if (arr[j] > arr[j + 1]) {
       let temp = arr[j]
@@ -16,7 +47,46 @@ export const bubbleSwap = (arr: number[], directionSort: string, j: number) => {
       arr[j + 1] = temp
     }
   }
-} 
+}
+
+
+export const selectionSortFuntion = async (
+  arr: number[],
+  directionSort: string,
+  waitingTime: number,
+  setNextElement?: React.Dispatch<React.SetStateAction<number | undefined>>,
+  setCurrentElement?: React.Dispatch<React.SetStateAction<number | undefined>>,
+  setArrNumbers?: React.Dispatch<React.SetStateAction<number[]>>,
+) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (setNextElement) {
+      setNextElement(i)
+    }
+    let maxInd = i;
+    for (let j = i + 1; j < arr.length + 1; j++) {
+      await timer(waitingTime)
+      if (setCurrentElement) {
+        setCurrentElement(j)
+      }
+      if (directionSort === 'up') {
+        if (arr[j] < arr[maxInd]) {
+          maxInd = j
+        }
+      } else {
+        if (arr[j] > arr[maxInd]) {
+          maxInd = j
+        }
+      }
+    }
+    selectionSwap(arr, i, maxInd)
+    if (setArrNumbers) {
+      setArrNumbers([...arr])
+    }
+    if (setNextElement) {
+      setNextElement(i + 1)
+    }
+  }
+}
 
 export const selectionSwap = (arr: number[], firstIndex: number, secondIndex: number) => {
   const temp = arr[firstIndex];
