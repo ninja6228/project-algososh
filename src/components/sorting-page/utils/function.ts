@@ -4,6 +4,7 @@ import { timer } from '../../../utils/function/timer';
 
 export const randomNumber = (min: number = 0, max: number = 0) => Math.floor(Math.random() * (max - min + 1) + min);
 
+
 export const bubbleSortFuntion = async (
   arr: number[],
   directionSort: string,
@@ -31,6 +32,7 @@ export const bubbleSortFuntion = async (
       }
     }
   }
+  return arr;
 };
 
 const bubbleSwap = (arr: number[], directionSort: string, j: number) => {
@@ -86,6 +88,7 @@ export const selectionSortFuntion = async (
       setNextElement(i + 1)
     }
   }
+  return arr;
 }
 
 export const selectionSwap = (arr: number[], firstIndex: number, secondIndex: number) => {
