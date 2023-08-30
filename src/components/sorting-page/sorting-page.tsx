@@ -4,9 +4,8 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { Button } from '../ui/button/button';
 import { Direction } from "../../types/direction";
 import { Column } from "../ui/column/column";
-import { timer } from "../../utils/function/timer";
 import { DELAY_IN_MS } from '../../constants/delays';
-import { bubbleSwap, selectionSwap, randomNumber, stateBubbleElement, stateSelectionElement } from './utils/function'
+import { bubbleSortFuntion, selectionSortFuntion, randomNumber, stateBubbleElement, stateSelectionElement } from './utils/function'
 import style from './sorting.module.css';
 
 export const SortingPage: React.FC = () => {
@@ -23,8 +22,8 @@ export const SortingPage: React.FC = () => {
   }, []);
 
   const randomArr = () => {
-    setNextElement(undefined)
     setCurrentElement(undefined)
+    setNextElement(undefined)
     setLastElement(undefined)
     let arr: number[] = [];
     const arrLength = randomNumber(3, 17)
@@ -37,44 +36,16 @@ export const SortingPage: React.FC = () => {
 
   const bubbleSort = async (arr: number[], directionSort: string) => {
     setDeactiveButton(true)
-    for (let i = 0; i < arr.length; i++) {
-      setLastElement(arr.length - i - 1)
-      for (let j = 0; j < arr.length - i - 1; j++) {
-        setCurrentElement(j)
-        setNextElement(j + 1)
-        await timer(DELAY_IN_MS)
-        bubbleSwap(arr, directionSort, j)
-        setArrNumbers([...arr])
-      }
-      setCurrentElement(undefined)
-      setNextElement(undefined)
-    }
+    await bubbleSortFuntion(arr, directionSort, DELAY_IN_MS, setLastElement, setNextElement, setCurrentElement, setArrNumbers)
+    setCurrentElement(undefined)
+    setNextElement(undefined)
     setDeactiveButton(false)
     setLoading('')
-  };
+  }
 
   const selectionSort = async (arr: number[], directionSort: string) => {
     setDeactiveButton(true)
-    for (let i = 0; i < arr.length; i++) {
-      setNextElement(i)
-      let maxInd = i;
-      for (let j = i + 1; j < arr.length + 1; j++) {
-        await timer(DELAY_IN_MS)
-        setCurrentElement(j)
-        if (directionSort === 'up') {
-          if (arr[j] < arr[maxInd]) {
-            maxInd = j
-          }
-        } else {
-          if (arr[j] > arr[maxInd]) {
-            maxInd = j
-          }
-        }
-      }
-      selectionSwap(arr, i, maxInd)
-      setArrNumbers([...arr])
-      setNextElement(i + 1)
-    }
+    await selectionSortFuntion(arr, directionSort, DELAY_IN_MS, setNextElement, setCurrentElement, setArrNumbers)
     setDeactiveButton(false)
     setLoading('')
   };
